@@ -1,3 +1,10 @@
+export const ADMIN_EMAILS = ['bryandu76@live.fr'];
+
+export function isAdminEmail(email) {
+  return typeof email === 'string' && ADMIN_EMAILS.includes(email.trim().toLowerCase());
+}
+
 export function isAdministrator(user) {
-  return Boolean(user?.confirmedAt && Array.isArray(user.roles) && user.roles.includes('admin'));
+  if (!user?.confirmedAt) return false;
+  return (Array.isArray(user.roles) && user.roles.includes('admin')) || isAdminEmail(user.email);
 }
