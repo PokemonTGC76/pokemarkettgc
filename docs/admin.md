@@ -4,6 +4,10 @@ L’espace administrateur utilise Netlify Identity. Le serveur vérifie la sessi
 
 L’espace est masqué par défaut. Le bouton rond avec une icône de cadenas dans l’en-tête affiche la connexion et les outils d’administration autorisés. Le bouton « Fermer » ou la touche Échap depuis cet espace le masque à nouveau. Le lien `#admin` permet aussi de l’ouvrir directement et conserve l’espace visible après la connexion. Ce masquage visuel ne change pas les contrôles de session et de rôle.
 
+Sur mobile, les liens de navigation sont masqués, mais le bouton cadenas reste visible et utilisable. L’en-tête peut passer sur deux lignes sur les petits écrans pour ne pas couper ce bouton.
+
+Le bouton flottant du panier est placé en bas à droite pour ne pas recouvrir le cadenas dans l’en-tête.
+
 ## Activer le compte demandé
 
 Le compte demandé n’a pas encore été activé. Aucun mot de passe ne peut être utilisé pour la connexion administrateur tant que l’invitation n’a pas été acceptée et que le rôle `admin` n’a pas été attribué.
