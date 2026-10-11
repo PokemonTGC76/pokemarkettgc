@@ -1,12 +1,18 @@
 # Connexion administrateur
 
-L’espace administrateur utilise Netlify Identity. Le serveur vérifie la session, la confirmation de l’adresse e-mail et le rôle `admin` avant d’autoriser l’ouverture du panneau. L’adresse e-mail seule ne confère aucun droit et les métadonnées modifiables par un client ne sont pas utilisées pour l’autorisation.
+L’espace administrateur utilise Netlify Identity. Le serveur vérifie la session, la confirmation de l’adresse e-mail et le rôle `admin` avant d’autoriser l’ouverture du panneau. Le rôle peut être présent dans la liste des rôles applicatifs (`app_metadata.roles`) ou dans le rôle du compte (`role`), tous deux contrôlés côté serveur. L’adresse e-mail seule ne confère aucun droit et les métadonnées modifiables par un client ne sont pas utilisées pour l’autorisation.
+
+Si la session ne contient pas les informations de confirmation, le serveur consulte la fiche complète du compte dans Identity avant de décider de l’accès. Une indisponibilité de cette vérification produit un message temporaire, sans accorder de droits ni présenter le compte comme non administrateur.
 
 L’espace est masqué par défaut. Le bouton rond avec une icône de cadenas dans l’en-tête affiche la connexion et les outils d’administration autorisés. Le bouton « Fermer » ou la touche Échap depuis cet espace le masque à nouveau. Le lien `#admin` permet aussi de l’ouvrir directement et conserve l’espace visible après la connexion. Ce masquage visuel ne change pas les contrôles de session et de rôle.
 
+Sur mobile, les liens de navigation sont masqués, mais le bouton cadenas reste visible et utilisable. L’en-tête peut passer sur deux lignes sur les petits écrans pour ne pas couper ce bouton.
+
+Le bouton flottant du panier est placé en bas à droite pour ne pas recouvrir le cadenas dans l’en-tête.
+
 ## Activer le compte demandé
 
-Le compte demandé n’a pas encore été activé. Aucun mot de passe ne peut être utilisé pour la connexion administrateur tant que l’invitation n’a pas été acceptée et que le rôle `admin` n’a pas été attribué.
+Le compte doit être activé et disposer du rôle `admin`. Si ces deux conditions sont déjà remplies, aucune nouvelle invitation ni modification du mot de passe n’est nécessaire.
 
 Dans le projet **pokemarkettgc**, ouvrir **Identity** dans le tableau de bord Netlify. Rechercher `Bryandu76@live.fr`. Si le compte n’existe pas, utiliser **Invite users** avec cette adresse. Si une invitation a déjà été envoyée, ouvrir le lien reçu dans cette boîte e-mail pour terminer l’activation.
 

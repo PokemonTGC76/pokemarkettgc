@@ -1,5 +1,5 @@
 import {
-  AuthError, MissingIdentityError, getUser, login, logout, refreshSession, verifyRequestOrigin
+  AuthError, MissingIdentityError, admin, getUser, login, logout, refreshSession, verifyRequestOrigin
 } from '@netlify/identity';
 import { isAdministrator } from '../lib/admin-auth.mjs';
 import { json, publicUser, readBody, validEmail } from '../lib/client-http.mjs';
@@ -14,6 +14,13 @@ export default async function adminAuth(request) {
       await refreshSession();
       user = await getUser();
       if (!user) return json({ error: 'Connectez-vous avec votre compte administrateur.' }, 401);
+      if (!user.confirmedAt) {
+        try {
+          user = await admin.getUser(user.id);
+        } catch {
+          return json({ error: 'Impossible de vérifier les droits administrateur pour le moment. Réessayez plus tard.' }, 503);
+        }
+      }
     } else {
       verifyRequestOrigin(request);
       let body;
@@ -35,7 +42,10 @@ export default async function adminAuth(request) {
     }
     if (!isAdministrator(user)) {
       if (request.method === 'POST') await logout();
-      return json({ error: 'Accès réservé aux comptes confirmés ayant le rôle admin dans Netlify Identity.' }, 403);
+      const error = user.confirmedAt
+        ? 'Ce compte ne possède pas le rôle admin dans Netlify Identity. Vérifiez ses droits, puis reconnectez-vous.'
+        : 'Confirmez votre adresse e-mail ou acceptez votre invitation Netlify Identity avant de vous connecter.';
+      return json({ error }, 403);
     }
     return json({ user: publicUser(user) });
   } catch (error) {

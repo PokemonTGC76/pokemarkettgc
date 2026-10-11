@@ -51,8 +51,22 @@
 }
 
 @media (max-width: 700px) {
+  header {
+    flex-wrap: wrap;
+  }
+
+  header nav {
+    display: flex;
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  header nav a {
+    display: none;
+  }
+
   .admin-access {
-    margin-left: 10px;
+    margin-left: 0;
   }
 }
 
