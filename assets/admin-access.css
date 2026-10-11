@@ -1,0 +1,63 @@
+#admin[hidden] {
+  display: none !important;
+}
+
+.admin-access {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-left: 18px;
+  padding: 10px;
+  border: 1px solid #f7f0ff55;
+  border-radius: 50%;
+  background: #160b2566;
+  color: #fff;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.admin-access:hover,
+.admin-access[aria-expanded="true"] {
+  background: #160b25cc;
+}
+
+.admin-access:active {
+  transform: scale(.95);
+}
+
+.admin-access:focus-visible,
+#adminClose:focus-visible {
+  outline: 3px solid #f7f0ff;
+  outline-offset: 4px;
+}
+
+.admin-access svg {
+  width: 22px;
+  height: 22px;
+}
+
+.admin-heading {
+  position: relative;
+  padding-top: 44px;
+}
+
+#adminClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@media (max-width: 700px) {
+  .admin-access {
+    margin-left: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-access {
+    transition: none;
+  }
+}

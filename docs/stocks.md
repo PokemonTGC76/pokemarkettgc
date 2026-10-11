@@ -1,0 +1,13 @@
+# Affichage des stocks
+
+Le coffret Fable Nébuleuse est proposé à 75,00 €, avec un stock initial de 1 exemplaire défini par la migration `20261011130000_add-coffret-fable-nebuleuse-stock.sql`. Son prix est également enregistré dans le catalogue de paiement côté serveur. La photo locale `assets/products/coffret-fable-nebuleuse.webp` provient de la fiche Total Cards « Pokemon - Scarlet & Violet - Shrouded Fable - Elite Trainer Box » (image `pokemon-shrouded-fable-elite-trainer-box.jpg`) et représente le Coffret Dresseur d’élite avec son emballage anglais. La description ne présume pas de la langue ni du contenu du produit vendu.
+
+Le coffret Amphinobi – 30 ans a été ajouté au catalogue à 100,00 €, avec 1 exemplaire initialisé par la migration `20261011120000_add-coffret-amphinobi-stock.sql`. Sa photo locale présente le coffret Méga-Amphinobi ex Premium Collection, provenant de la fiche produit Pikastore « [FR] Pokémon Coffret Premium 8 Boosters Mega Amphinobi EX » (produit 39635, image 60919). Le visuel ne porte pas de mention « 30 ans » ; il n'a pas été retouché pour en ajouter une. Le prix est également enregistré dans le catalogue de paiement côté serveur.
+
+Les articles du catalogue affichent les quantités enregistrées dans Netlify Database : 0 pour l’ETB Rivalités Destinées, le booster Règne Delta et l’ETB Règne Delta (nommé « ETB Méga-Évolution » dans le catalogue), 1 pour le coffret Premiers Partenaires – Série 2 et les autres ETB, 0 pour chaque display, 10 pour les deux boosters 30ᵉ Anniversaire et 40 pour les autres boosters, y compris les boosters japonais et chinois.
+
+Les articles dont la quantité est nulle affichent également « Rupture de stock ». Les accessoires conservent la mention « Stock à confirmer », aucune quantité n’ayant été définie pour ces articles. Cette mention apparaît aussi si le service de stock est indisponible, sans afficher une quantité inventée.
+
+La migration initiale crée et initialise les stocks lors du déploiement. Une migration supplémentaire met à jour uniquement les quatre articles confirmés ci-dessus. La migration `20261010162000_set-regne-delta-stock-zero.sql` réaffirme ensuite le stock de 0 pour le booster Règne Delta et l’ETB Règne Delta, sans modifier les autres articles. Les migrations déjà appliquées des profils clients et des stocks restent inchangées. Le point d’accès public `/.netlify/functions/product-stock` accepte uniquement la lecture des noms et des quantités.
+
+Cette fonctionnalité concerne uniquement l’affichage : elle n’ajoute pas d’interface d’administration, ne bloque pas les achats et ne décrémente pas automatiquement les quantités après un paiement. Le fonctionnement existant des produits ajoutés localement n’a pas été modifié.

@@ -1,0 +1,17 @@
+#clientPanel{max-width:760px;margin:0 auto}
+.client-form{background:linear-gradient(145deg,#12091f,#281044);padding:28px;border-radius:22px;border:1px solid #a855f740;box-shadow:0 18px 55px #7c3aed44}
+.client-form label{display:block;color:#f7f0ff;font-weight:700;margin:14px 0 7px}
+.client-form input{width:100%;padding:13px;border-radius:10px;border:1px solid #a855f740;background:#f8f5ff;color:#211034;font-size:16px}
+.client-form input:focus-visible,.client-btn:focus-visible{outline:3px solid #e879f9;outline-offset:3px}
+.client-form input[readonly]{background:#ddd0ef}
+.client-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.client-btn{border:0;background:linear-gradient(135deg,#7c3aed,#c026d3);color:#fff;padding:13px 18px;border-radius:10px;font-weight:800;cursor:pointer}
+.client-btn.secondary{background:#211034;border:1px solid #a855f780}
+.client-btn:disabled{opacity:.55;cursor:wait}
+.client-status{margin-top:16px;line-height:1.6;color:#ddd0ef}
+.client-status[data-error="true"]{color:#fda4af}
+.client-card{background:#211034;border:1px solid #a855f740;border-radius:16px;padding:18px;margin-top:18px;white-space:pre-line;overflow-wrap:anywhere}
+.client-note{font-size:13px;color:#cfc2dd;line-height:1.6}
+#clientButton{position:fixed;left:20px;bottom:20px;z-index:9000;border-radius:999px;box-shadow:0 8px 25px #7c3aed66}
+.client-form [hidden]{display:none!important}
+@media(max-width:700px){.client-form{padding:20px}#clientButton{left:12px;bottom:12px;padding:11px 14px}}

@@ -1,0 +1,11 @@
+{
+  "name": "pokemarket",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PokéMarket Netlify site",
+  "dependencies": {
+    "@netlify/database": "^2.0.1",
+    "@netlify/identity": "^2.0.0",
+    "stripe": "^19.1.0"
+  }
+}
