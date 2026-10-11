@@ -1,3 +1,4 @@
 export function isAdministrator(user) {
-  return Boolean(user?.confirmedAt && Array.isArray(user.roles) && user.roles.includes('admin'));
+  const hasAdminRole = user?.role === 'admin' || (Array.isArray(user?.roles) && user.roles.includes('admin'));
+  return Boolean(user?.confirmedAt && hasAdminRole);
 }
