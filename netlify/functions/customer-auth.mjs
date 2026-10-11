@@ -1,8 +1,31 @@
 import {
   AuthError, MissingIdentityError, acceptInvite, confirmEmail, getUser, login, logout,
-  recoverPassword, refreshSession, requestPasswordRecovery, signup, verifyRequestOrigin
+  refreshSession, requestPasswordRecovery, signup, verifyRequestOrigin
 } from '@netlify/identity';
 import { json, publicUser, readBody, validEmail } from '../lib/client-http.mjs';
+
+async function identityFetch(request, path, init) {
+  const response = await fetch(new URL('/.netlify/identity' + path, request.url), {
+    ...init,
+    headers: { 'Content-Type': 'application/json', ...init.headers }
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new AuthError(data.msg || data.error_description || 'Identity request failed', response.status);
+  return data;
+}
+
+async function resetPassword(request, token, password) {
+  const session = await identityFetch(request, '/verify', {
+    method: 'POST',
+    body: JSON.stringify({ token, type: 'recovery' })
+  });
+  if (!session.access_token) throw new AuthError('Recovery token rejected', 400);
+  await identityFetch(request, '/user', {
+    method: 'PUT',
+    headers: { Authorization: 'Bearer ' + session.access_token },
+    body: JSON.stringify({ password })
+  });
+}
 
 export default async function customerAuth(request) {
   if (!['GET', 'POST'].includes(request.method)) {
@@ -34,7 +57,16 @@ export default async function customerAuth(request) {
           return json({ error: 'Le mot de passe doit contenir entre 8 et 128 caractères.' }, 400);
         }
         if (body.action === 'invite') await acceptInvite(body.token, body.password);
-        else await recoverPassword(body.token, body.password);
+        else {
+          try {
+            await resetPassword(request, body.token, body.password);
+          } catch (error) {
+            if (error instanceof AuthError && [400, 401, 403, 404, 422].includes(error.status)) {
+              return json({ error: 'Lien de réinitialisation invalide ou expiré. Demandez-en un nouveau.' }, 400);
+            }
+            throw error;
+          }
+        }
       } else {
         await confirmEmail(body.token);
       }
