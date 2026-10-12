@@ -3,3 +3,10 @@
 
 [functions]
   node_bundler = "esbuild"
+
+[[headers]]
+  for = "/admin*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    X-Frame-Options = "DENY"
+    Cache-Control = "no-cache"

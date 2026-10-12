@@ -18,8 +18,18 @@ La création du premier administrateur et l’attribution de son rôle nécessit
 
 Pour un compte déjà activé, utiliser **Mot de passe oublié** dans l’espace administrateur. Le lien reçu permet de définir un nouveau mot de passe sans modifier le code du site.
 
+## Écran d’administration `/admin`
+
+La page `/admin` est l’écran d’administration de la boutique. Elle demande une connexion avec un compte admin et propose trois onglets :
+
+- **Stocks** : liste tous les produits du catalogue de paiement avec leur prix et leur stock. Chaque quantité peut être modifiée et enregistrée dans Netlify Database ; la boutique affiche aussitôt la nouvelle valeur. Les produits sans stock défini (par exemple les accessoires) apparaissent comme « Non défini » et peuvent recevoir une quantité.
+- **Commandes** : liste les sessions Stripe Checkout créées par la boutique, avec la date, le client, l’adresse de livraison, les articles, le montant et le statut du paiement, 25 par page.
+- **Clients** : liste les profils enregistrés depuis l’espace client, avec une recherche.
+
+Chaque fonction (`admin-stock`, `admin-orders`, `admin-clients`) vérifie côté serveur la session, la confirmation de l’e-mail et le rôle `admin` avant de répondre. Les modifications vérifient aussi l’origine de la requête. La page n’est pas indexée par les moteurs de recherche. Les cartes du panneau caché de la page d’accueil mènent vers cet écran.
+
 ## Session et limites
 
 La session est partagée avec l’espace client. La déconnexion de l’un déconnecte l’autre. Le bouton de récupération du mot de passe envoie le lien Netlify Identity ; le formulaire de l’espace client traite ce lien.
 
-Cette intégration sécurise l’authentification. Le catalogue ajouté localement reste la fonctionnalité existante du navigateur : il n’est ni partagé entre appareils ni enregistré sur le serveur, et les commandes et la gestion globale des clients restent à connecter. Le masquage du panneau ne remplace pas une autorisation serveur : toute future API d’administration doit vérifier la session et le rôle avant de lire ou de modifier des données. Le catalogue serveur et Stripe Checkout n’ont pas été modifiés.
+Cette intégration sécurise l’authentification. Le catalogue ajouté localement reste la fonctionnalité existante du navigateur : il n’est ni partagé entre appareils ni enregistré sur le serveur, Le masquage du panneau ne remplace pas une autorisation serveur : toute future API d’administration doit vérifier la session et le rôle avant de lire ou de modifier des données. Le catalogue serveur et Stripe Checkout n’ont pas été modifiés.

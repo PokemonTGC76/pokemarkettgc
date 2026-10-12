@@ -61,3 +61,8 @@
     transition: none;
   }
 }
+
+#adminPanel a.client-btn {
+  display: inline-block;
+  text-decoration: none;
+}
