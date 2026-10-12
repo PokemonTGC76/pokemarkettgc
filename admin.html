@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Administration — PokemarketTGC</title>
+  <link rel="icon" type="image/png" href="/assets/brand/favicon.png?v=tgc-transparent-20261011">
+  <link rel="stylesheet" href="/assets/admin-dashboard.css?v=20261012">
+</head>
+<body>
+  <header class="ad-header">
+    <a class="ad-brand" href="/"><img src="/assets/brand/logo-small.webp?v=tgc-transparent-20261011" width="40" height="40" alt=""> <span>PokemarketTGC</span> <small>Administration</small></a>
+    <div class="ad-session">
+      <span id="adUser"></span>
+      <a class="ad-btn ghost" href="/">Voir la boutique</a>
+      <button id="adLogout" class="ad-btn ghost" type="button" hidden>Se déconnecter</button>
+    </div>
+  </header>
+
+  <main class="ad-main">
+    <section id="adLogin" class="ad-login" hidden>
+      <h1>Connexion administrateur</h1>
+      <p class="ad-muted">Réservé aux comptes Netlify Identity confirmés ayant le rôle <code>admin</code>.</p>
+      <form id="adLoginForm">
+        <label for="adEmail">Adresse e-mail</label>
+        <input id="adEmail" type="email" autocomplete="email" maxlength="254" required>
+        <label for="adPassword">Mot de passe</label>
+        <input id="adPassword" type="password" autocomplete="current-password" maxlength="128" required>
+        <button class="ad-btn" type="submit">Se connecter</button>
+        <button id="adForgot" class="ad-btn ghost" type="button">Mot de passe oublié</button>
+      </form>
+    </section>
+
+    <p id="adStatus" class="ad-status" role="status" aria-live="polite">Vérification de la session…</p>
+
+    <section id="adDashboard" hidden>
+      <div class="ad-tabs" role="tablist" aria-label="Sections d’administration">
+        <button role="tab" id="tab-stock" aria-controls="panel-stock" aria-selected="true">📦 Stocks</button>
+        <button role="tab" id="tab-orders" aria-controls="panel-orders" aria-selected="false" tabindex="-1">🛒 Commandes</button>
+        <button role="tab" id="tab-clients" aria-controls="panel-clients" aria-selected="false" tabindex="-1">👥 Clients</button>
+      </div>
+
+      <section id="panel-stock" role="tabpanel" aria-labelledby="tab-stock" class="ad-panel">
+        <div class="ad-panel-head">
+          <h2>Stocks</h2>
+          <input id="stockFilter" type="search" placeholder="Filtrer les produits" aria-label="Filtrer les produits">
+        </div>
+        <p class="ad-muted">Les quantités enregistrées ici sont affichées immédiatement sur la boutique. Elles ne sont pas décrémentées automatiquement après un paiement.</p>
+        <div class="ad-table-wrap">
+          <table class="ad-table">
+            <thead><tr><th>Produit</th><th>Prix</th><th>Stock actuel</th><th>Nouvelle quantité</th></tr></thead>
+            <tbody id="stockRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="panel-orders" role="tabpanel" aria-labelledby="tab-orders" class="ad-panel" hidden>
+        <div class="ad-panel-head">
+          <h2>Commandes Stripe</h2>
+          <button id="ordersRefresh" class="ad-btn ghost" type="button">Actualiser</button>
+        </div>
+        <div class="ad-table-wrap">
+          <table class="ad-table">
+            <thead><tr><th>Date</th><th>Client</th><th>Articles</th><th>Montant</th><th>Statut</th></tr></thead>
+            <tbody id="orderRows"></tbody>
+          </table>
+        </div>
+        <button id="ordersMore" class="ad-btn ghost" type="button" hidden>Charger plus</button>
+      </section>
+
+      <section id="panel-clients" role="tabpanel" aria-labelledby="tab-clients" class="ad-panel" hidden>
+        <div class="ad-panel-head">
+          <h2>Clients <span id="clientCount" class="ad-muted"></span></h2>
+          <input id="clientFilter" type="search" placeholder="Rechercher un client" aria-label="Rechercher un client">
+        </div>
+        <div class="ad-table-wrap">
+          <table class="ad-table">
+            <thead><tr><th>Nom</th><th>E-mail</th><th>Téléphone</th><th>Adresse</th><th>Inscription</th></tr></thead>
+            <tbody id="clientRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="/assets/admin-dashboard.js?v=20261012" defer></script>
+</body>
+</html>
