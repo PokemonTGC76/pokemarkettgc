@@ -35,7 +35,7 @@ export default async function adminAuth(request) {
     }
     if (!isAdministrator(user)) {
       if (request.method === 'POST') await logout();
-      return json({ error: 'Accès réservé aux comptes confirmés ayant le rôle admin dans Netlify Identity.' }, 403);
+      return json({ error: 'Accès réservé aux comptes confirmés ayant le rôle administrateur dans Netlify Identity.' }, 403);
     }
     return json({ user: publicUser(user) });
   } catch (error) {
